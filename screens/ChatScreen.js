@@ -18,6 +18,7 @@ import { LongPressGestureHandler, State } from "react-native-gesture-handler";
 import { Keyboard } from "react-native";
 import { db, auth } from "../firebase";
 import * as firebase from "firebase";
+import { theme } from "../core/theme";
 
 const ChatScreen = ({ navigation, route, chatName, photoURL }) => {
   const [input, setInput] = useState("");
@@ -147,6 +148,7 @@ const ChatScreen = ({ navigation, route, chatName, photoURL }) => {
                       right={-5}
                       size={24}
                       source={{ uri: data.photoURL }}
+                      
                     />) : (<Avatar
                       rounded
                       position="absolute"
@@ -160,14 +162,22 @@ const ChatScreen = ({ navigation, route, chatName, photoURL }) => {
                   </View>
                 ) : (
                   <View key={id} style={styles.reciever}>
-                    <Avatar
-                      rounded
-                      position="absolute"
-                      top={-10}
-                      left={-5}
-                      size={24}
-                      source={{ uri: data.photoURL }}
-                    />
+                  {data?.photoURL ?  (<Avatar
+                    rounded
+                    position="absolute"
+                    bottom={30}
+                    right={-5}
+                    size={24}
+                    source={{ uri: data.photoURL }}
+                    
+                  />) : (<Avatar
+                    rounded
+                    position="absolute"
+                    bottom={0}
+                    right={-5}
+                    size={32}
+                    source={require('../assets/icon/profile2.png')}
+                  />)} 
                     <Text style={styles.recieverName}>{data.displayName}</Text>
                     <Text style={styles.recieverText}>{data.message}</Text>
                   </View>
@@ -183,6 +193,8 @@ const ChatScreen = ({ navigation, route, chatName, photoURL }) => {
                 onFocus={scrollDownDelayed}
                 style={styles.textInput}
               />
+            <Avatar source={require('../assets/icon/send.png')} />
+
               <TouchableOpacity onPress={sendMessage} activeOpacity={0.5}>
               <LongPressGestureHandler
                 key={id}
@@ -208,7 +220,7 @@ const styles = StyleSheet.create({
   },
   reciever: {
     padding: 10,
-    backgroundColor: "#2B68E6",
+    backgroundColor: `${theme.colors.primary}`,
     alignSelf: "flex-start",
     borderRadius: 20,
     marginLeft: 15,

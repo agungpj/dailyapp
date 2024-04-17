@@ -43,6 +43,7 @@ const LoginScreen = ({ navigation, keyboardShown }) => {
         setloading(false);
       })
       .catch((error) => {
+        console.log(error?.code)
         setloading(false);
         setVisible(true);
         setErrMassage(error?.message)

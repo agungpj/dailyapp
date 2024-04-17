@@ -25,7 +25,7 @@ import { Avatar } from "react-native-elements";
 
 
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const [visible, setVisible] = useState(false)
   const [errMassage, setErrMassage] = useState("")
@@ -95,6 +95,13 @@ const ProfileScreen = () => {
       console.log(err)
     }
   };
+
+  const logout = () => {
+    auth.signOut().then(() => {
+      navigation.replace("MenuScreen");
+    });
+  };
+
 
   const selectImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -182,6 +189,7 @@ const ProfileScreen = () => {
       >
         Save
       </Button>
+  
     </Background>
   );
 };
@@ -199,6 +207,11 @@ const styles = StyleSheet.create({
   },
   register: {
     backgroundColor: `${theme.colors.primary}`,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  logout: {
+    backgroundColor: `#faf`,
     borderWidth: 1,
     borderColor: '#fff'
   },
